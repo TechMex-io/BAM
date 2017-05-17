@@ -258,7 +258,7 @@
 
 
 
-<section class="slide whiteSlide contact" data-name="contact">
+<section class="slide whiteSlide contact" data-name="calendar">
   <div class="content">
     <div class="container">
       <div class="wrap">
@@ -279,75 +279,45 @@
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   <script src="js/slides.min.js" type="text/javascript" name="main-scripts"></script>
   <script src='fc/fullcalendar.min.js'></script>
+  <script src='fc/gcal.min.js'></script>
 
  
     <script>
 
-      $(document).ready(function() {
+	$(document).ready(function() {
+	
+		$('#calendar').fullCalendar({
 
-        $('#calendar').fullCalendar({
-          defaultDate: '2017-05-12',
-          editable: true,
-          eventLimit: true, // allow "more" link when too many events
-          events: [
-            {
-              title: 'All Day Event',
-              start: '2017-05-01'
-            },
-            {
-              title: 'Long Event',
-              start: '2017-05-07',
-              end: '2017-05-10'
-            },
-            {
-              id: 999,
-              title: 'Repeating Event',
-              start: '2017-05-09T16:00:00'
-            },
-            {
-              id: 999,
-              title: 'Repeating Event',
-              start: '2017-05-16T16:00:00'
-            },
-            {
-              title: 'Conference',
-              start: '2017-05-11',
-              end: '2017-05-13'
-            },
-            {
-              title: 'Meeting',
-              start: '2017-05-12T10:30:00',
-              end: '2017-05-12T12:30:00'
-            },
-            {
-              title: 'Lunch',
-              start: '2017-05-12T12:00:00'
-            },
-            {
-              title: 'Meeting',
-              start: '2017-05-12T14:30:00'
-            },
-            {
-              title: 'Happy Hour',
-              start: '2017-05-12T17:30:00'
-            },
-            {
-              title: 'Dinner',
-              start: '2017-05-12T20:00:00'
-            },
-            {
-              title: 'Birthday Party',
-              start: '2017-05-13T07:00:00'
-            },
-            {
-              title: 'Click for Google',
-              url: 'http://google.com/',
-              start: '2017-05-28'
-            }
-          ]
-        });
-        
-      });
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,list Year'
+			},
+
+			displayEventTime: false, // don't show the time column in list view
+
+			// THIS KEY WON'T WORK IN PRODUCTION!!!
+			// To make your own Google API key, follow the directions here:
+			// http://fullcalendar.io/docs/google_calendar/
+			googleCalendarApiKey: 'AIzaSyAPyV9As1PqXd1b2vQB6-u6lUyLophKRAA',
+		
+			// US Holidays
+			events: 'https://calendar.google.com/calendar/embed?src=george.ramirez@gmail.com&ctz=America/Denver',
+			
+			eventClick: function(event) {
+				// opens events in a popup window
+				window.open(event.url, 'gcalevent', 'width=700,height=600');
+				return false;
+			},
+			
+			loading: function(bool) {
+				$('#loading').toggle(bool);
+			}
+			
+		});
+		
+	});
+
 
     </script>					
 	</body>
